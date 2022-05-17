@@ -1,0 +1,22 @@
+main: ${project.groupId}.${project.artifactId}.${project.name}
+name: ${project.name}
+depend: [DiscordSRV]
+version: ${project.version}
+author: VapoR
+commands:
+  btel-reload:
+    description: Reload plugin
+    usage: /btel-reload
+    permission: btel.admin.reload
+permissions:
+  btel.*:
+    description: Wildcard
+    children:
+      btel.admin: true
+      btel.admin.reload: true
+  btel.admin.*:
+    description: Admin wildcard
+    children:
+      btel.admin.reload: true
+  btel.admin.reload:
+    description: Allows usage of /btel-reload

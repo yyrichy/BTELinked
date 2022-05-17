@@ -1,0 +1,9 @@
+# Info about BTE Website API key: https://github.com/BuildTheEarth/build-team-api
+BTEAPIKey: "API_KEY_HERE"
+# WebsiteDiscordLink.Roles: {...} If want to link for example website reviewers to a role, add ("reviewer": "DISCORD_ROLE_ID") to the map
+# Possible options include "builder", "leader", "coleader", "reviewer"
+WebsiteDiscordLink:
+  Enabled: true
+  IntervalInMins: 5
+  GuildID: "DISCORD_GUILD_ID"
+  Roles: { "builder": "DISCORD_BUILDER_ROLE_ID" }
