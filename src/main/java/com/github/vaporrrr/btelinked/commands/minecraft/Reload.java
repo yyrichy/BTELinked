@@ -1,4 +1,4 @@
-package com.github.vaporrrr.btelinked.commands;
+package com.github.vaporrrr.btelinked.commands.minecraft;
 
 import com.github.vaporrrr.btelinked.BTELinked;
 import org.bukkit.ChatColor;

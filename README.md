@@ -1,9 +1,17 @@
 # BTELinked
 
-Simple plugin that links BTE website roles to Discord roles on an interval.
+Simple plugin that syncs BTE Website roles to Discord roles on an interval.
 
 ## Features
-- It does one thing
+- Sync BTE Website roles -> Discord roles on an interval (mins), Discord guild member join, Discord and Minecraft command
+
+## Commands
+
+### Discord
+- &sync
+
+### Minecraft
+- /btel-sync
 
 ## Requirements 
 - SpigotMC, Paper, downstream forks

@@ -1,6 +1,7 @@
 package com.github.vaporrrr.btelinked;
 
-import com.github.vaporrrr.btelinked.commands.Reload;
+import com.github.vaporrrr.btelinked.commands.minecraft.Reload;
+import com.github.vaporrrr.btelinked.commands.minecraft.Sync;
 import com.github.vaporrrr.btelinked.listeners.DiscordListener;
 import de.leonhard.storage.Config;
 import de.leonhard.storage.LightningBuilder;
@@ -34,6 +35,7 @@ public class BTELinked extends JavaPlugin {
     public void onEnable() {
         getLogger().info("BTELinked Enabled!");
         getCommand("btel-reload").setExecutor(new Reload());
+        getCommand("btel-sync").setExecutor(new Sync());
         DiscordSRV.api.subscribe(new DiscordListener());
     }
 
@@ -52,7 +54,7 @@ public class BTELinked extends JavaPlugin {
     public void reload() {
         reloadConfig();
         if(!roleUpdater.isInterrupted()) roleUpdater.interrupt();
-        if (config().getBoolean("WebsiteDiscordLink.Enabled")) {
+        if (config().getInt("WebsiteDiscordLink.IntervalInMins") > 0) {
             roleUpdater = new RoleUpdater();
             roleUpdater.start();
         }

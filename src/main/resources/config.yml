@@ -2,8 +2,18 @@
 BTEAPIKey: "API_KEY_HERE"
 # WebsiteDiscordLink.Roles: {...} If want to link for example website reviewers to a role, add ("reviewer": "DISCORD_ROLE_ID") to the map
 # Possible options include "builder", "leader", "coleader", "reviewer"
+# WebsiteDiscordLink.IntervalInMins: 5 Do not set the number to low, if you want to disable, set to 0
 WebsiteDiscordLink:
-  Enabled: true
   IntervalInMins: 5
+  OnMemberJoin: false
   GuildID: "DISCORD_GUILD_ID"
   Roles: { "builder": "DISCORD_BUILDER_ROLE_ID" }
+DiscordCommands:
+  Sync:
+    Permissions:
+      Roles:
+        - "DISCORD_ROLE_ID"
+        - "DISCORD_ROLE_ID"
+      Users:
+        - "DISCORD_USER_ID"
+        - "DISCORD_USER_ID"

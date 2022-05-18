@@ -14,9 +14,13 @@ permissions:
     children:
       btel.admin: true
       btel.admin.reload: true
+      btel.admin.sync: true
   btel.admin.*:
     description: Admin wildcard
     children:
       btel.admin.reload: true
+      btel.admin.sync: true
   btel.admin.reload:
     description: Allows usage of /btel-reload
+  btel.admin.sync:
+    description: Allows usage of /btel-sync
