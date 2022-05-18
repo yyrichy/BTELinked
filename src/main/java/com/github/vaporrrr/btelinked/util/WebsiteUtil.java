@@ -53,7 +53,7 @@ public class WebsiteUtil {
     }
 
     private static JSONArray getWebsiteMembers() {
-        JSONObject request = getRequest("website_members");
+        JSONObject request = getRequest("api/v1/members");
         if (request == null) return null;
         return request.getJSONArray("members");
     }
