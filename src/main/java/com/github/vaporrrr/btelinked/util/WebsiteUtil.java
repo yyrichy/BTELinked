@@ -66,33 +66,36 @@ public class WebsiteUtil {
         }
         JDA jda = DiscordUtil.getJda();
         String guildID = BTELinked.config().getString("WebsiteDiscordLink.GuildID");
+        if (guildID.isEmpty()) {
+            BTELinked.warn("WebsiteDiscordLink.GuildID is not set in config.yml");
+            return;
+        }
         Guild guild = jda.getGuildById(guildID);
         if (guild == null) {
-            BTELinked.warn("Could not get Discord guild from " + guildID);
+            BTELinked.warn("Could not get Discord guild from \"" + guildID + "\"");
+            return;
+        }
+        String builderRoleID = BTELinked.config().getString("WebsiteDiscordLink.Roles.Builder");
+        if (builderRoleID.isEmpty()) {
+            BTELinked.warn("WebsiteDiscordLink.Roles.Builder is not set in config.yml");
+            return;
+        }
+        Role role = guild.getRoleById(builderRoleID);
+        if (role == null) {
+            BTELinked.warn("Could not get Builder Discord role \"" + builderRoleID + "\" from Discord guild \"" + guild.getName() + "\"");
             return;
         }
         for (int i = 0; i < members.length(); i++) {
             JSONObject webMember = members.getJSONObject(i);
             String discordID = webMember.getString("discordId");
-            String discordTag = webMember.getString("discordTag");
             Member member = guild.getMemberById(discordID);
-            if (member == null) {
-                BTELinked.warn("Could not get Discord member " + discordTag + "/" + discordID + " from Discord guild " + guild.getName());
-            } else {
-                String matchingDiscordRoleID = (String) BTELinked.config().getMap("WebsiteDiscordLink.Roles").get(webMember.getString("role"));
-                if (matchingDiscordRoleID != null) {
-                    Role role = guild.getRoleById(matchingDiscordRoleID);
-                    if (role != null) {
-                        try {
-                            guild.addRoleToMember(member, role).queue();
-                            BTELinked.info("Added " + role.getName() + " to " + member.getUser().getAsTag() + "/" + discordID);
-                        } catch (Exception e) {
-                            BTELinked.warn("Exception occurred adding Discord role " + role.getName() + " to " + member.getUser().getAsTag() + "/" + discordID + " in Discord guild " + guild.getName());
-                            e.printStackTrace();
-                        }
-                    } else {
-                        BTELinked.warn("Could not get Discord role " + matchingDiscordRoleID + " from Discord guild " + guild.getName());
-                    }
+            if (member != null && member.getRoles().stream().noneMatch(r -> r.getId().equals(builderRoleID))) {
+                try {
+                    guild.addRoleToMember(member, role).queue();
+                    BTELinked.info("Added Discord role \"" + role.getName() + "\" to \"" + member.getUser().getAsTag() + "/" + discordID + "\"");
+                } catch (Exception e) {
+                    BTELinked.warn("Exception occurred adding Discord role \"" + role.getName() + "/" + role.getId() + "\" to \"" + member.getUser().getAsTag() + "/" + discordID + "\" in Discord guild \"" + guild.getName() + "\"");
+                    e.printStackTrace();
                 }
             }
         }

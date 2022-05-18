@@ -6,16 +6,17 @@ import de.leonhard.storage.Config;
 import github.scarsz.discordsrv.api.ListenerPriority;
 import github.scarsz.discordsrv.api.Subscribe;
 import github.scarsz.discordsrv.api.events.DiscordGuildMessageReceivedEvent;
-import github.scarsz.discordsrv.dependencies.jda.api.events.guild.member.GuildMemberJoinEvent;
+import github.scarsz.discordsrv.api.events.DiscordReadyEvent;
+import github.scarsz.discordsrv.util.DiscordUtil;
 
 public class DiscordListener {
     @Subscribe
-    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        if (BTELinked.config().getBoolean("WebsiteDiscordLink.OnMemberJoin")) {
-            WebsiteUtil.linkWebsiteToDiscord();
-        }
+    public void discordReadyEvent(DiscordReadyEvent event) {
+       BTELinked.info("Connected to Discord");
+       BTELinked.info("Started syncing");
+       BTELinked.getPlugin().startRoleUpdater();
+       DiscordUtil.getJda().addEventListener(new JDAListener());
     }
-
     @Subscribe(priority = ListenerPriority.MONITOR)
     public void discordMessageReceived(DiscordGuildMessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;

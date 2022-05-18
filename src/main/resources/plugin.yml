@@ -8,6 +8,10 @@ commands:
     description: Reload plugin
     usage: /btel-reload
     permission: btel.admin.reload
+  btel-sync:
+    description: Runs website -> Discord sync
+    usage: /btel-sync
+    permission: btel.admin.sync
 permissions:
   btel.*:
     description: Wildcard

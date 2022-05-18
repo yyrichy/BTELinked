@@ -53,6 +53,10 @@ public class BTELinked extends JavaPlugin {
 
     public void reload() {
         reloadConfig();
+        startRoleUpdater();
+    }
+
+    public void startRoleUpdater() {
         if(!roleUpdater.isInterrupted()) roleUpdater.interrupt();
         if (config().getInt("WebsiteDiscordLink.IntervalInMins") > 0) {
             roleUpdater = new RoleUpdater();
